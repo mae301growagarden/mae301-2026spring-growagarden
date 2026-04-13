@@ -1,95 +1,154 @@
 # Phase 2 MVP Progress Report
+
 ## Grow A Garden: AI Garden Planning Assistant
+
+---
 
 ## 1. Objective and Current MVP Definition
 
 ### Minimum Viable Product
-Our MVP for this course is a working chatbot assistant that can:
 
-1. Accept basic user inputs such as:
-   - location
-   - current season or month
-   - available garden space
-   - plant of interest
+Our MVP for this course is a working system that allows a user to:
 
-2. Return personalized gardening guidance including:
-   - whether the plant is appropriate for the user’s region and season
-   - a basic watering schedule
-   - planting guidance and expected growing conditions
-   - an explanation for why the recommendation was made
+1. Input gardening conditions such as:
 
-### Technical Risks
-- Inaccurate recommendations due to insufficient datasets
-- Holes in datasets that lack the specific crops a user wants to plant
-- Generic advice that could be provided to the user by an LLM
+   * USDA hardiness zone or location
+   * current date or season
+   * available garden space
+   * sunlight and watering preference
 
-## What Has Been Built So Far
+2. Receive:
 
-At this stage, we have built a prototype workflow for generating gardening advice from user inputs.
+   * crop recommendations suited to their conditions
+   * a structured weekly watering and planting schedule
+   * explanations for why those recommendations were made
 
-### Current Prototype
+---
 
-#### A. User Input Structure
-We defined a clear input schema for the assistant:
-- user location or USDA hardiness zone
-- current month or season
-- plot size or available space
-- plant/crop of interest
-- optional notes such as “container garden” or “limited sun”
+## 2. What Has Been Built So Far
 
-This gives the model more structured information than a freeform gardening question.
+At this stage, we have developed two working prototype systems that together demonstrate our MVP progress.
 
-#### B. Gardening Knowledge Context
-We assembled a small initial knowledge base from:
-- USDA plant hardiness zone information
-- public gardening guides
-- plant care information such as water needs, planting seasons, and temperature ranges
-- sample agricultural datasets from Kaggle
+### A. Recommendation-Focused System (Primary Demo)
 
-This knowledge was not used as a full production-grade retrieval system yet, but it was used to create a structured context prompt for the model.
+This system generates crop recommendations based on user inputs such as zone, sunlight, and watering preferences.
 
-#### C. Prompted Recommendation Workflow
-We developed a prompt structure that asks the model to:
-1. interpret the user’s location and season
-2. determine whether the crop is suitable
-3. provide watering and planting advice
-4. explain the reason for the recommendation
-5. mention uncertainties when the data is limited
+Capabilities:
 
-This is better than a simple open-ended prompt because it enforces a more useful output structure.
+* Uses a small, partially structured dataset and prompt-based logic
+* Filters crops by approximate seasonal planting windows
+* Matches crops to user constraints (sun, water, timing)
+* Outputs recommendations with explanations
 
-#### D. Initial Test Scenarios
-We prepared a set of representative user cases to test output quality, such as:
-- lettuce in Arizona in April
-- tomatoes in a hot region in midsummer
-- carrots in a small raised bed in spring
-- herbs in containers with partial sun
+Limitations:
 
-## What does not work yet
-- responses were often generic and allows user to enter specific and broad locations (city/state)
-- responses do not yet pull from external data
-- recommendations are not detailed enough to be unique from regular LLMs
-- the agent needs to have more capabilities such as creating specific plans and larger crop datasets
-- explanations were not always tied to the user’s growing conditions
+* **Does not reliably pull from structured datasets at runtime**
+* Relies heavily on prompt-based reasoning (LLM-style)
+* Limited dataset coverage leads to more generic outputs
 
+This is our **primary MVP feature** because it directly answers the core user question: *"What should I plant right now?"*
 
-## Phase 3 Plans
+---
 
+### B. Scheduling-Focused System (Secondary Prototype)
 
-1. building a cleaner and more reliable gardening knowledge source
-2. improving how the system maps user location to relevant growing conditions
-3. defining a repeatable evaluation process
-4. deciding whether the final MVP should remain prompt-based or include retrieval and external data lookup
+This system focuses on generating an **8-week gardening schedule** based on selected crops.
 
+Capabilities:
+
+* Uses structured crop datasets
+* Creates weekly planting and watering tasks
+* Estimates irrigation needs
+* Outputs structured schedules (tables, CSV, markdown)
+
+This prototype demonstrates stronger use of datasets, but is currently less refined in usability and presentation.
+
+---
+
+### C. Data and Knowledge Base
+
+We assembled an initial dataset including:
+
+* USDA hardiness zone data
+* plant growing seasons and temperature ranges
+* watering requirements
+* spacing and time-to-maturity information
+* public gardening datasets (e.g., Kaggle)
+
+However, dataset integration is **inconsistent across systems**, and most data is sourced from the United States.
+
+---
+
+### D. Workflow
+
+The current system pipeline:
+
+1. Load and preprocess crop data (used mainly in scheduling system)
+2. Interpret user inputs (zone, date, constraints)
+3. Generate recommendations (partially prompt-based)
+4. Generate a schedule based on selected crops
+5. Output results as tables and markdown summaries
+
+---
+
+## 3. Technical Bottlenecks
+
+* **Limited dataset integration**: The recommendation system does not fully utilize structured datasets
+* **Limited dataset scope**: Most data is sourced from the United States, reducing generalizability
+* Incomplete crop coverage and missing edge cases
+* Lack of real-time or dynamic data integration
+
+---
+
+## 4. What Does Not Work Yet
+
+* Recommendation system produces outputs that can feel generic
+* Weak connection between recommendations and underlying data
+* No unified pipeline combining recommendation + scheduling
+* Scheduling output is functional but not visually refined
+* Limited personalization beyond basic inputs
+
+---
+
+## 5. Key Areas for Improvement
+
+* **Combine the two demo systems** into a single, unified workflow
+* Improve dataset usage in the recommendation system
+* Improve the **layout and readability** of the scheduling output
+* Expand dataset coverage beyond U.S.-based data
+* Improve explanation quality to better reflect user-specific conditions
+
+---
+
+## 6. Evidence of Progress
+
+We successfully built:
+
+* A recommendation prototype (prompt-based)
+* A dataset-driven scheduling system
+* A reproducible demo in Google Colab
+* Exportable outputs (CSV and markdown)
+
+These components demonstrate meaningful technical progress and iteration toward a functional AI gardening assistant.
+
+---
+
+## 7. Phase 3 Plans
 
 ### Planned Next Steps
-1. Expand the gardening knowledge base by cleaning and organizing plant data and defining fields such as watering needs, temperature range, planting window, and sunlight needs
 
-2. Add a retrieval or lookup layer in order to pull plant-specific information before generation and reduce hallucinations
+1. Integrate structured datasets directly into the recommendation system
 
-3. Improve input handling by standardizing user profiles and better supporting season and garden type
+2. Combine recommendation + scheduling into one system
 
-4. Build a minimal user interface such as a command-line demo, notebook interface, or lightweight web app
+3. Expand and improve the dataset:
 
+   * add more crops and regions
+   * clean and standardize data fields
 
+4. Add a retrieval or lookup layer to reduce generic outputs
+
+5. Improve input handling and user personalization
+
+6. Build a simple user interface (Colab, CLI, or web app)
 
