@@ -1,5 +1,5 @@
 # ==============================
-# Grow A Garden Colab Demo (robust)
+# Grow A Garden Colab Demo
 # ==============================
 
 from pathlib import Path
