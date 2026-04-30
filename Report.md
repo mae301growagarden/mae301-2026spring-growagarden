@@ -21,39 +21,8 @@ A user in Phoenix wants to know if tomatoes are a good plant to grow in April in
 
 The Grow A Garden MVP uses a retrieval-based workflow that combines live weather data, live plant information, and user gardening conditions to generate personalized recommendations. Instead of relying on a static chatbot response, the system retrieves current environmental and plant-specific context before producing its recommendation.
 
-### High-Level Architecture
-
-```text
-User Input
-   |
-   v
-Streamlit User Interface
-   |
-   v
-Input Validation
-   |
-   v
-Retrieval Layer
-   |-----------------------------|
-   |                             |
-   v                             v
-Open-Meteo API             Perenual Plant API
-(Location + Weather)       (Plant Search + Details)
-   |                             |
-   |-----------------------------|
-                 |
-                 v
-Recommendation Engine
-                 |
-                 v
-UI Output to User
-
-
----
-
+ 
 ## Section 4
-
-```markdown id="0xw5z4"
 ## 4. Data
 
 The MVP uses live data from external APIs rather than relying entirely on one static local dataset.
