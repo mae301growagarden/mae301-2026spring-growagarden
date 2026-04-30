@@ -23,6 +23,7 @@ The Grow A Garden MVP uses a retrieval-based workflow that combines live weather
 
 ### High-Level Architecture
 
+<img width="460" height="597" alt="image" src="https://github.com/user-attachments/assets/04bcb31b-882e-4245-abd1-8bde066bb888" />
 
 
 
